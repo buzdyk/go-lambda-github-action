@@ -1,30 +1,27 @@
 package main
 
 import (
-	"bytes"
-	"io"
-	"os"
+	"fmt"
+	"github.com/aws/aws-lambda-go/events"
 	"testing"
 )
 
-func TestRun(t *testing.T) {
-	originalStdout := os.Stdout
+func TestHandler(t *testing.T) {
+	t.Run("Successful response", func(t *testing.T) {
+		response, err := handler(events.APIGatewayProxyRequest{
+			RequestContext: events.APIGatewayProxyRequestContext{
+				Identity: events.APIGatewayRequestIdentity{SourceIP: "127.0.0.1"},
+			},
+		})
 
-	r, w, _ := os.Pipe()
-	os.Stdout = w
+		if err != nil {
+			t.Fatal("Everything should be ok")
+		}
 
-	main()
+		expected := "Hello, 127.0.0.1!"
 
-	w.Close()
-	os.Stdout = originalStdout
-
-	var buf bytes.Buffer
-	io.Copy(&buf, r)
-
-	output := buf.String()
-	expected := "1"
-
-	if output != expected {
-		t.Errorf("Incorrect Run() output, expected %s, got %s", expected, output)
-	}
+		if response.Body != expected {
+			t.Fatal(fmt.Printf("Response message is wrong. Expected %s, got %s", expected, response.Body))
+		}
+	})
 }
