@@ -3,11 +3,11 @@ Project to explore GitHub Actions, AWS CDK, and AWS Lambda.
 Base app is written in Go and simply outputs an IP address of a function visitor.
 
 Local Lambda development with Amazon Sam
-- [install](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
+- [install](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) Amazon Sam
 - run `sam local start-api` (on mac os `DOCKER_HOST=unix://$HOME/.docker/run/docker.sock sam local start-api`)
 - visit http://127.0.0.1:3000/hello
 
-Creates Infrastructure with Amazon CDK
+Creates AWS infrastructure with Amazon CDK
 - npm install -g aws-sdk
 - run `make build-and-zip` to create a binary. It's required to create a Lambda function
 - run `cd cdk`
