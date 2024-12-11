@@ -3,5 +3,5 @@ build-hellogo:
 	cp ./bootstrap $(ARTIFACTS_DIR)/.
 
 build-and-zip:
-	GOOS=linux go build -o bootstrap
+	CGO_ENABLED=0 GOOS=linux go build -o bootstrap
 	zip bootstrap.zip bootstrap
