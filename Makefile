@@ -4,4 +4,4 @@ build-hellogo:
 
 build-and-zip:
 	GOOS=linux go build -o bootstrap
-	zip bootstrap bootstrap.zip
+	zip bootstrap.zip bootstrap
